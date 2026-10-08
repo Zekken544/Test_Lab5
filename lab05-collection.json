@@ -102,6 +102,171 @@
           "response": []
         }
       ]
+    },
+    {
+      "name": "02: Оюутан байхгүй",
+      "item": [
+        {
+          "name": "1: Хичээл үүсгэх",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"prerequisites\": []\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/courses/L5_CASE02",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "courses",
+                "L5_CASE02"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "2: Байхгүй оюутны бүртгэлийг шалгах",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 200 байх\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Оюутан байхгүй алдаа буцаах\", function () {\r\n    const body = pm.response.json();\r\n    pm.expect(body.result).to.eql(\"ERROR_NO_STUDENT\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"studentID\": \"L5_MISSING_STUDENT_02\",\r\n  \"courseID\": \"L5_CASE02\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/registrations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "registrations"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "03: Идэвхгүй оюутан",
+      "item": [
+        {
+          "name": "1: Идэвхгүй оюутан үүсгэх",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"status\": \"inactive\",\r\n  \"coursesTaken\": [\"CS201\"]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/students/L5_STUDENT_03",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "students",
+                "L5_STUDENT_03"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "2: Хичээл үүсгэх",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"prerequisites\": [\"CS201\"]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/courses/L5_CASE03",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "courses",
+                "L5_CASE03"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "3: Идэвхгүй оюутны бүртгэлийг шалгах",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 200 байх\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Идэвхгүй оюутны алдаа буцаах\", function () {\r\n    const body = pm.response.json();\r\n    pm.expect(body.result).to.eql(\"ERROR_INACTIVE_STUDENT\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"studentID\": \"L5_STUDENT_03\",\r\n  \"courseID\": \"L5_CASE03\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/registrations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "registrations"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
     }
   ],
   "variable": [
