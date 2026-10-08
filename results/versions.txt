@@ -1,2 +1,2 @@
-﻿Node.js: v25.5.0
+Node.js: v25.5.0
 Newman: 6.2.2
