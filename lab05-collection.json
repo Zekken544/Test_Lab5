@@ -267,6 +267,171 @@
           "response": []
         }
       ]
+    },
+    {
+      "name": "04: Хичээл байхгүй",
+      "item": [
+        {
+          "name": "1: Идэвхтэй оюутан үүсгэх",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"status\": \"active\",\r\n  \"coursesTaken\": [\"CS201\"]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/students/L5_STUDENT_04",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "students",
+                "L5_STUDENT_04"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "2: Байхгүй хичээлийн бүртгэлийг шалгах",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 200 байх\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Хичээл байхгүй алдаа буцаах\", function () {\r\n    const body = pm.response.json();\r\n    pm.expect(body.result).to.eql(\"ERROR_NO_COURSE\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"studentID\": \"L5_STUDENT_04\",\r\n  \"courseID\": \"L5_MISSING_COURSE_04\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/registrations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "registrations"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "05: Урьдач нөхцөл дутуу",
+      "item": [
+        {
+          "name": "1: CS201 үзсэн оюутан үүсгэх",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"status\": \"active\",\r\n  \"coursesTaken\": [\"CS201\"]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/students/L5_STUDENT_05",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "students",
+                "L5_STUDENT_05"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "2: Хоёр урьдач нөхцөлтэй хичээл үүсгэх",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"prerequisites\": [\"CS201\", \"CS202\"]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/courses/L5_CASE05",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "courses",
+                "L5_CASE05"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "3: Дутуу урьдач хичээлийг шалгах",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 200 байх\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Урьдач нөхцөл дутуу алдаа буцаах\", function () {\r\n    const body = pm.response.json();\r\n    pm.expect(body.result).to.eql(\"ERROR_PREREQUISITES\");\r\n});\r\n\r\npm.test(\"Дутуу хичээл нь зөвхөн CS202 байх\", function () {\r\n    const body = pm.response.json();\r\n    pm.expect(body.missing).to.deep.equal([\"CS202\"]);\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"studentID\": \"L5_STUDENT_05\",\r\n  \"courseID\": \"L5_CASE05\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/registrations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "registrations"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
     }
   ],
   "variable": [
